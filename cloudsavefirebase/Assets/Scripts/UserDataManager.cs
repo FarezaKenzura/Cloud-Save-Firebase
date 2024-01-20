@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.Analytics;
 
 public static class UserDataManager
 {
@@ -67,8 +68,11 @@ public static class UserDataManager
 
         if (uploadToCloud)
         {
+            AnalyticsManager.SetUserProperties("gold", Progress.Gold.ToString());
+
             byte[] data = Encoding.Default.GetBytes (json);
             StorageReference targetStorage = GetTargetCloudStorage ();
+
             targetStorage.PutBytesAsync (data);
         }
     }
